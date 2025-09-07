@@ -12,12 +12,12 @@ Diese Anleitung beschreibt die Installation von WordPress, Webmin und Adminer in
 
 2. Führen Sie das erste Script für die lokale Installation im neu erstellten LXC-Container aus:
    ```bash
-   sudo ./wordpress_local_install.sh
+   sudo ./main.sh
    ```
    
    Dieses Script:
    - Installiert alle benötigten Komponenten (Apache, MySQL, PHP, Webmin, Adminer)
-   - Konfiguriert WordPress für den Zugriff im lokalen Netzwerk (z.B. 192.168.178.3)
+   - Konfiguriert WordPress für den Zugriff im lokalen Netzwerk
    - Verwendet HTTP und die lokale IP-Adresse
    - Erstellt automatisch Datenbank und Benutzer
    - Konfiguriert Apache ohne Reverse Proxy Manager
@@ -26,7 +26,7 @@ Diese Anleitung beschreibt die Installation von WordPress, Webmin und Adminer in
 
 3. Falls Sie später auf eine öffentliche Domain umstellen möchten, führen Sie das zweite Script aus:
    ```bash
-   sudo ./wordpress_domain_setup.sh
+   sudo ./domain_setup.sh
    ```
    
    Dieses Script:
@@ -57,17 +57,6 @@ Diese Anleitung beschreibt die Installation von WordPress, Webmin und Adminer in
 
 ## Wichtige Hinweise
 
-- **Reihenfolge beachten:** Führen Sie zuerst `wordpress_local_install.sh` aus, dann optional `wordpress_domain_setup.sh`
+- **Reihenfolge beachten:** Führen Sie zuerst `main.sh` aus, dann optional `domain_setup.sh`
 - **Root-Berechtigung:** Beide Scripts müssen als root ausgeführt werden (sudo)
-- **Backup:** Das Domain-Setup-Script erstellt automatisch Backups der alten Konfiguration
 - **SSL-Zertifikate:** Bei HTTPS ohne Reverse Proxy müssen Sie zusätzlich SSL-Zertifikate konfigurieren
-- **Reverse Proxy:** Das zweite Script unterstützt sowohl Setups mit als auch ohne Reverse Proxy Manager
-
-## Flexibilität
-
-Diese optimierte Installationsmethode ermöglicht:
-- Eine sichere lokale Entwicklungsumgebung
-- Einfache Umstellung auf Produktionsumgebung
-- Flexible Konfiguration mit oder ohne Reverse Proxy
-- Effiziente Einrichtung von WordPress mit zusätzlichen Verwaltungstools in einer containerisierten Umgebung
-
