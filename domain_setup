@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -56,8 +56,8 @@ echo
 echo -e "${BLUE}Reverse Proxy Manager Einstellungen:${NC}"
 read -p "Haben Sie einen Reverse Proxy Manager? (j/n): " HAS_PROXY
 if [[ "$HAS_PROXY" =~ ^[jJ]$ ]]; then
-    read -p "IP-Adresse des Reverse Proxy Managers (z.B. 192.168.178.2): " PROXY_IP
-    read -p "IP/Subnetz des Reverse Proxy (z.B. 192.168.178.2/24): " PROXY_SUBNET
+    read -p "IP-Adresse des Reverse Proxy Managers (z.B. 192.168.178.123: " PROXY_IP
+    read -p "IP/Subnetz des Reverse Proxy (z.B. 192.168.178.123/24): " PROXY_SUBNET
     
     if [ -z "$PROXY_IP" ] || [ -z "$PROXY_SUBNET" ]; then
         error_exit "Proxy-IP und Subnetz dürfen nicht leer sein."
@@ -277,6 +277,34 @@ echo -e "${BLUE}Leere WordPress Cache...${NC}"
 if command -v wp &> /dev/null; then
     cd $WP_PATH
     wp cache flush --allow-root 2>/dev/null || true
+fi
+
+# .htaccess-Datei erstellen/aktualisieren
+echo -e "${BLUE}Erstelle/aktualisiere .htaccess-Datei...${NC}"
+cat > $WP_PATH/.htaccess << 'EOF'
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+EOF
+
+# Berechtigungen für .htaccess setzen
+chown www-data:www-data $WP_PATH/.htaccess
+chmod 644 $WP_PATH/.htaccess
+
+# Permalinks neu setzen
+echo -e "${BLUE}Setze Permalinks neu...${NC}"
+if command -v wp &> /dev/null; then
+    cd $WP_PATH
+    wp rewrite structure '/%postname%/' --allow-root
+    wp rewrite flush --allow-root
 fi
 echo
 
