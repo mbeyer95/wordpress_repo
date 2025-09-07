@@ -235,5 +235,5 @@ echo -e "Admin-Login: ${GREEN}$ADMIN_USER${NC}"
 echo -e "Admin-Passwort: ${GREEN}$ADMIN_PASSWORD${NC}"
 echo
 echo -e "${BLUE}Hinweis:${NC} Diese Installation ist nur für das lokale Netzwerk konfiguriert."
-echo -e "Verwenden Sie das zweite Script 'wordpress_domain_setup.sh' um später auf eine öffentliche Domain umzustellen."
+echo -e "Verwenden Sie das zweite Script 'domain_setup.sh' um später auf eine öffentliche Domain umzustellen."
 
