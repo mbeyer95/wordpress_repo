@@ -205,6 +205,29 @@ fi
 # Permalinks auf "Post name" setzen
 echo -e "${BLUE}Konfiguriere Permalinks...${NC}"
 wp option update permalink_structure "/%postname%/" --allow-root
+
+# .htaccess-Datei erstellen
+echo -e "${BLUE}Erstelle .htaccess-Datei...${NC}"
+cat > $WP_PATH/.htaccess << 'EOF'
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+EOF
+
+# Berechtigungen für .htaccess setzen
+chown www-data:www-data $WP_PATH/.htaccess
+chmod 644 $WP_PATH/.htaccess
+
+# Permalinks neu laden
+wp rewrite flush --allow-root
 echo
     
 # Standard Theme installieren
@@ -236,4 +259,3 @@ echo -e "Admin-Passwort: ${GREEN}$ADMIN_PASSWORD${NC}"
 echo
 echo -e "${BLUE}Hinweis:${NC} Diese Installation ist nur für das lokale Netzwerk konfiguriert."
 echo -e "Verwenden Sie das zweite Script 'domain_setup.sh' um später auf eine öffentliche Domain umzustellen."
-
