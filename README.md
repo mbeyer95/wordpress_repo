@@ -1,69 +1,3 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WordPress-Installation mit Webmin und Adminer in einem LXC-Container</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: #34495e;
-            margin-top: 30px;
-        }
-        h3 {
-            color: #7f8c8d;
-        }
-        code {
-            background-color: #f8f9fa;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-        }
-        pre {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            border-left: 4px solid #3498db;
-            overflow-x: auto;
-        }
-        pre code {
-            background-color: transparent;
-            padding: 0;
-        }
-        ul, ol {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 5px;
-        }
-        .highlight {
-            background-color: #fff3cd;
-            padding: 10px;
-            border-radius: 5px;
-            border-left: 4px solid #ffc107;
-            margin: 15px 0;
-        }
-        .info {
-            background-color: #d1ecf1;
-            padding: 10px;
-            border-radius: 5px;
-            border-left: 4px solid #17a2b8;
-            margin: 15px 0;
-        }
-    </style>
-</head>
-<body>
     <h1>WordPress-Installation mit Webmin und Adminer in einem LXC-Container</h1>
     
     <p>Diese Anleitung beschreibt die Installation von WordPress, Webmin und Adminer in einem LXC-Container unter Ubuntu 22.04. Die Installation erfolgt in zwei Schritten: zunächst eine lokale Installation für das Netzwerk, gefolgt von einer optionalen Umstellung auf eine öffentliche Domain mit Reverse Proxy Manager.</p>
@@ -125,32 +59,26 @@
 
     <h3>Nach der Domain-Umstellung:</h3>
     <ul>
-        <li><strong>WordPress:</strong> <code>https://[IHRE-DOMAIN]</code> (oder HTTP, je nach Konfiguration)</li>
+        <li><strong>WordPress:</strong> <code>https://[IHRE-DOMAIN]</code> (oder HTTP, je nach Konfiguration )</li>
         <li><strong>WordPress Admin:</strong> <code>https://[IHRE-DOMAIN]/wp-admin</code></li>
         <li><strong>Adminer:</strong> <code>https://[IHRE-DOMAIN]/adminer</code></li>
-        <li><strong>Webmin:</strong> <code>http://[LOKALE-IP]:10000</code> (bleibt lokal)</li>
+        <li><strong>Webmin:</strong> <code>http://[LOKALE-IP]:10000</code> (bleibt lokal )</li>
     </ul>
 
     <h2>Wichtige Hinweise</h2>
-    <div class="highlight">
-        <ul>
-            <li><strong>Reihenfolge beachten:</strong> Führen Sie zuerst <code>wordpress_local_install.sh</code> aus, dann optional <code>wordpress_domain_setup.sh</code></li>
-            <li><strong>Root-Berechtigung:</strong> Beide Scripts müssen als root ausgeführt werden (sudo)</li>
-            <li><strong>Backup:</strong> Das Domain-Setup-Script erstellt automatisch Backups der alten Konfiguration</li>
-            <li><strong>SSL-Zertifikate:</strong> Bei HTTPS ohne Reverse Proxy müssen Sie zusätzlich SSL-Zertifikate konfigurieren</li>
-            <li><strong>Reverse Proxy:</strong> Das zweite Script unterstützt sowohl Setups mit als auch ohne Reverse Proxy Manager</li>
-        </ul>
-    </div>
+    <ul>
+        <li><strong>Reihenfolge beachten:</strong> Führen Sie zuerst <code>wordpress_local_install.sh</code> aus, dann optional <code>wordpress_domain_setup.sh</code></li>
+        <li><strong>Root-Berechtigung:</strong> Beide Scripts müssen als root ausgeführt werden (sudo)</li>
+        <li><strong>Backup:</strong> Das Domain-Setup-Script erstellt automatisch Backups der alten Konfiguration</li>
+        <li><strong>SSL-Zertifikate:</strong> Bei HTTPS ohne Reverse Proxy müssen Sie zusätzlich SSL-Zertifikate konfigurieren</li>
+        <li><strong>Reverse Proxy:</strong> Das zweite Script unterstützt sowohl Setups mit als auch ohne Reverse Proxy Manager</li>
+    </ul>
 
     <h2>Flexibilität</h2>
-    <div class="info">
-        <p>Diese optimierte Installationsmethode ermöglicht:</p>
-        <ul>
-            <li>Eine sichere lokale Entwicklungsumgebung</li>
-            <li>Einfache Umstellung auf Produktionsumgebung</li>
-            <li>Flexible Konfiguration mit oder ohne Reverse Proxy</li>
-            <li>Effiziente Einrichtung von WordPress mit zusätzlichen Verwaltungstools in einer containerisierten Umgebung</li>
-        </ul>
-    </div>
-</body>
-</html>
+    <p>Diese optimierte Installationsmethode ermöglicht:</p>
+    <ul>
+        <li>Eine sichere lokale Entwicklungsumgebung</li>
+        <li>Einfache Umstellung auf Produktionsumgebung</li>
+        <li>Flexible Konfiguration mit oder ohne Reverse Proxy</li>
+        <li>Effiziente Einrichtung von WordPress mit zusätzlichen Verwaltungstools in einer containerisierten Umgebung</li>
+    </ul>
